@@ -69,9 +69,9 @@ class GameTest {
     class ConstructorAbnormalTest {
 
         @Test
-        void illegalAnswerTest() {
+        void illegalStringAnswerTest() {
             assertThrows(IllegalArgumentException.class,
-                    () -> game = new Game("asdf"));
+                    () -> game = new Game("ABC"));
         }
     }
 }

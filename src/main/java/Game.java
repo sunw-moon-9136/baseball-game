@@ -7,8 +7,8 @@ public class Game {
         this.answer = answer;
         answerCharArr = answer.toCharArray();
 
-        for (int i = 0; i < answerCharArr.length; i++) {
-            if (answerCharArr[i] > '9' || answerCharArr[i] < '0') {
+        for (char c : answerCharArr) {
+            if (c > '9' || c < '0') {
                 throw new IllegalArgumentException("Answer should be 3 digits");
             }
         }
