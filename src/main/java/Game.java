@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Game {
 
     public static final String TEMP_ANSWER = "123";
@@ -13,8 +15,15 @@ public class Game {
         Result result = Result.of();
 
         for (int i = 0; i < 3; i++) {
-            if (answerCharArr[i] == trialCharArr[i])
+            if (answerCharArr[i] == trialCharArr[i]) {
                 result.addStrike();
+                continue;
+            }
+
+            for (int j = 0; j < 3; j++) {
+                if (answerCharArr[j] == trialCharArr[i])
+                    result.addBall();
+            }
         }
 
         return result;

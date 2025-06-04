@@ -23,4 +23,14 @@ class GameTest {
         assertEquals(2, ret.getStrikes());
         assertEquals(0, ret.getBalls());
     }
+
+    @Test
+    void oneStrikeTwoBallTest() {
+        Game game = new Game();
+
+        Result ret = game.guess("132");
+
+        assertEquals(1, ret.getStrikes());
+        assertEquals(2, ret.getBalls());
+    }
 }
