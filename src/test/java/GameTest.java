@@ -8,9 +8,9 @@ class GameTest {
     void threeStrikeTest() {
         Game game = new Game();
 
-        GuessResult ret = game.guess("123");
+        Result ret = game.guess("123");
 
-        assertEquals(ret.getStrikes(), 3);
-        assertEquals(ret.getBalls(), 0);
+        assertEquals(3, ret.getStrikes());
+        assertEquals(0, ret.getBalls());
     }
 }

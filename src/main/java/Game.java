@@ -1,11 +1,13 @@
 public class Game {
 
-    String answer = "123";
+    public static final String TEMP_ANSWER = "123";
 
-    public GuessResult guess(String number) {
-        if (answer.equals(number))
-            return GuessResult.of(3, 0);
+    private final String answer = TEMP_ANSWER;
 
-        throw new IllegalArgumentException();
+    public Result guess(String trial) {
+        if (answer.equals(trial))
+            return Result.of(3, 0);
+
+        throw new IllegalArgumentException("Illegal Argument: " + trial);
     }
 }
