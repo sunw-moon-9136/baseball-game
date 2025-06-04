@@ -6,6 +6,12 @@ public class Game {
     public Game(String answer) {
         this.answer = answer;
         answerCharArr = answer.toCharArray();
+
+        for (int i = 0; i < answerCharArr.length; i++) {
+            if (answerCharArr[i] > '9' || answerCharArr[i] < '0') {
+                throw new IllegalArgumentException("Answer should be 3 digits");
+            }
+        }
     }
 
     public Result guess(String trial) {

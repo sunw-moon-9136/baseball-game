@@ -64,4 +64,14 @@ class GameTest {
             assertEquals(0, ret.getBalls());
         }
     }
+
+    @Nested
+    class ConstructorAbnormalTest {
+
+        @Test
+        void illegalAnswerTest() {
+            assertThrows(IllegalArgumentException.class,
+                    () -> game = new Game("asdf"));
+        }
+    }
 }
