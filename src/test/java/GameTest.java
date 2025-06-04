@@ -1,5 +1,117 @@
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameTest {
+
+    private Game game;
+
+    @Nested
+    class NormalTest {
+
+        @BeforeEach
+        void setUp() {
+            game = new Game("123");
+        }
+
+        @Test
+        void threeStrikeTest() {
+            Result ret = game.guess("123");
+
+            assertEquals(3, ret.getStrikes());
+            assertEquals(0, ret.getBalls());
+        }
+
+        @Test
+        void twoStrikeZeroBallTest() {
+            Result ret = game.guess("129");
+
+            assertEquals(2, ret.getStrikes());
+            assertEquals(0, ret.getBalls());
+        }
+
+        @Test
+        void oneStrikeTwoBallTest() {
+            Result ret = game.guess("132");
+
+            assertEquals(1, ret.getStrikes());
+            assertEquals(2, ret.getBalls());
+        }
+
+        @Test
+        void oneStrikeTest() {
+            Result ret = game.guess("195");
+
+            assertEquals(1, ret.getStrikes());
+            assertEquals(0, ret.getBalls());
+        }
+
+        @Test
+        void threeBallTest() {
+            Result ret = game.guess("312");
+
+            assertEquals(0, ret.getStrikes());
+            assertEquals(3, ret.getBalls());
+        }
+
+        @Test
+        void noStrikeNoBallTest() {
+            Result ret = game.guess("456");
+
+            assertEquals(0, ret.getStrikes());
+            assertEquals(0, ret.getBalls());
+        }
+    }
+
+    @Nested
+    class AnswerAbnormalTest {
+
+        @Test
+        void illegalStringAnswerTest() {
+            assertThrows(IllegalArgumentException.class,
+                    () -> game = new Game("ABC"));
+        }
+
+        @Test
+        void illegalLongAnswerTest() {
+            assertThrows(IllegalArgumentException.class,
+                    () -> game = new Game("123456"));
+        }
+
+        @Test
+        void illegalSameDigitAnswerTest() {
+            assertThrows(IllegalArgumentException.class,
+                    () -> game = new Game("999"));
+        }
+    }
+
+    @Nested
+    class TrialAbnormalTest {
+
+        @BeforeEach
+        void setUp() {
+            game = new Game("123");
+        }
+
+        @Test
+        void illegalStringTrialTest() {
+            assertThrows(IllegalArgumentException.class,
+                    () -> game.guess("ABC"));
+        }
+
+        @Test
+        void illegalLongTrialTest() {
+            assertThrows(IllegalArgumentException.class,
+                    () -> game.guess("123456"));
+        }
+
+        @Test
+        void illegalSameDigitTrialTest() {
+            assertThrows(IllegalArgumentException.class,
+                    () -> game.guess("999"));
+        }
+    }
 
 }
