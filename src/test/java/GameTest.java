@@ -79,5 +79,11 @@ class GameTest {
             assertThrows(IllegalArgumentException.class,
                     () -> game = new Game("123456"));
         }
+
+        @Test
+        void illegalSameDigitAnswerTest() {
+            assertThrows(IllegalArgumentException.class,
+                    () -> game = new Game("999"));
+        }
     }
 }

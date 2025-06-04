@@ -5,12 +5,31 @@ public class Game {
     private final char[] answerCharArr;
 
     public Game(String answer) {
-        if (answer.length() > 3)
-            throw new IllegalArgumentException(ERROR_ANSWER_SHOULD_BE_3_DIGITS);
+        require3Digits(answer);
 
         this.answer = answer;
         answerCharArr = answer.toCharArray();
 
+        requireAllNumber();
+        requireNotDuplicatedNumber();
+    }
+
+    private static void require3Digits(String answer) {
+        if (answer.length() > 3)
+            throw new IllegalArgumentException(ERROR_ANSWER_SHOULD_BE_3_DIGITS);
+    }
+
+    private void requireNotDuplicatedNumber() {
+        for (char curChar : answerCharArr) {
+            int sameCount = 0;
+            for (char diffChar : answerCharArr) {
+                if (curChar == diffChar) sameCount++;
+            }
+            if (sameCount > 1) throw new IllegalArgumentException(ERROR_ANSWER_SHOULD_BE_3_DIGITS);
+        }
+    }
+
+    private void requireAllNumber() {
         for (char curChar : answerCharArr) {
             if (curChar > '9' || curChar < '0') {
                 throw new IllegalArgumentException(ERROR_ANSWER_SHOULD_BE_3_DIGITS);
