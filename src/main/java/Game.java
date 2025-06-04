@@ -10,8 +10,8 @@ public class Game {
         this.answer = answer;
         answerCharArr = answer.toCharArray();
 
-        requireAllNumber();
-        requireNotDuplicatedNumber();
+        requireAllNumber(answerCharArr);
+        requireNotDuplicatedNumber(answerCharArr);
     }
 
     private static void require3Digits(String answer) {
@@ -19,18 +19,18 @@ public class Game {
             throw new IllegalArgumentException(ERROR_ANSWER_SHOULD_BE_3_DIGITS);
     }
 
-    private void requireNotDuplicatedNumber() {
-        for (char curChar : answerCharArr) {
+    private void requireNotDuplicatedNumber(char[] charArr) {
+        for (char curChar : charArr) {
             int sameCount = 0;
-            for (char diffChar : answerCharArr) {
+            for (char diffChar : charArr) {
                 if (curChar == diffChar) sameCount++;
             }
             if (sameCount > 1) throw new IllegalArgumentException(ERROR_ANSWER_SHOULD_BE_3_DIGITS);
         }
     }
 
-    private void requireAllNumber() {
-        for (char curChar : answerCharArr) {
+    private void requireAllNumber(char[] charArr) {
+        for (char curChar : charArr) {
             if (curChar > '9' || curChar < '0') {
                 throw new IllegalArgumentException(ERROR_ANSWER_SHOULD_BE_3_DIGITS);
             }
@@ -38,10 +38,16 @@ public class Game {
     }
 
     public Result guess(String trial) {
-        if (answer.equals(trial))
-            return Result.of(3, 0);
-
         char[] trialCharArr = trial.toCharArray();
+
+        require3Digits(trial);
+        requireAllNumber(trialCharArr);
+        requireNotDuplicatedNumber(trialCharArr);
+
+        if (answer.equals(trial)) {
+            return Result.of(3, 0);
+        }
+
         Result result = Result.of();
 
         for (int i = 0; i < 3; i++) {

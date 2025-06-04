@@ -86,4 +86,32 @@ class GameTest {
                     () -> game = new Game("999"));
         }
     }
+
+    @Nested
+    class TrialAbnormalTest {
+
+        @BeforeEach
+        void setUp() {
+            game = new Game("123");
+        }
+
+        @Test
+        void illegalStringTrialTest() {
+            assertThrows(IllegalArgumentException.class,
+                    () -> game.guess("ABC"));
+        }
+
+        @Test
+        void illegalLongTrialTest() {
+            assertThrows(IllegalArgumentException.class,
+                    () -> game.guess("123456"));
+        }
+
+        @Test
+        void illegalSameDigitTrialTest() {
+            assertThrows(IllegalArgumentException.class,
+                    () -> game.guess("999"));
+        }
+    }
+
 }
