@@ -1,18 +1,19 @@
 public class Game {
 
+    public static final String ERROR_ANSWER_SHOULD_BE_3_DIGITS = "Answer should be 3 digits";
     private final String answer;
     private final char[] answerCharArr;
 
     public Game(String answer) {
-        if(answer.length() > 3)
-            throw new IllegalArgumentException("Answer should be 3 digits");
+        if (answer.length() > 3)
+            throw new IllegalArgumentException(ERROR_ANSWER_SHOULD_BE_3_DIGITS);
 
         this.answer = answer;
         answerCharArr = answer.toCharArray();
 
-        for (char c : answerCharArr) {
-            if (c > '9' || c < '0') {
-                throw new IllegalArgumentException("Answer should be 3 digits");
+        for (char curChar : answerCharArr) {
+            if (curChar > '9' || curChar < '0') {
+                throw new IllegalArgumentException(ERROR_ANSWER_SHOULD_BE_3_DIGITS);
             }
         }
     }
