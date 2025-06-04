@@ -73,5 +73,11 @@ class GameTest {
             assertThrows(IllegalArgumentException.class,
                     () -> game = new Game("ABC"));
         }
+
+        @Test
+        void illegalLongAnswerTest() {
+            assertThrows(IllegalArgumentException.class,
+                    () -> game = new Game("123456"));
+        }
     }
 }

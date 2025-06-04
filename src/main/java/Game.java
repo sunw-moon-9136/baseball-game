@@ -4,6 +4,9 @@ public class Game {
     private final char[] answerCharArr;
 
     public Game(String answer) {
+        if(answer.length() > 3)
+            throw new IllegalArgumentException("Answer should be 3 digits");
+
         this.answer = answer;
         answerCharArr = answer.toCharArray();
 
