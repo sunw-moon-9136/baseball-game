@@ -1,21 +1,53 @@
 public class Game {
 
     public static final String ERROR_ANSWER_SHOULD_BE_3_DIGITS = "Answer should be 3 digits";
+
     private final String answer;
     private final char[] answerCharArr;
 
     public Game(String answer) {
-        require3Digits(answer);
+        requirePreconditions(answer);
 
         this.answer = answer;
         answerCharArr = answer.toCharArray();
-
-        requireAllNumber(answerCharArr);
-        requireNotDuplicatedNumber(answerCharArr);
     }
 
-    private static void require3Digits(String answer) {
-        if (answer.length() > 3)
+    public Result guess(String trial) {
+        requirePreconditions(trial);
+
+        if (answer.equals(trial)) {
+            return Result.of(3, 0);
+        }
+
+        Result result = Result.of();
+        char[] trialCharArr = trial.toCharArray();
+        for (int i = 0; i < 3; i++) {
+            if (answerCharArr[i] == trialCharArr[i]) {
+                result.addStrike();
+                continue;
+            }
+
+            checkBallByLetter(trialCharArr[i], result);
+        }
+
+        return result;
+    }
+
+    private void requirePreconditions(String trial) {
+        require3Digits(trial);
+        requireAllNumber(trial.toCharArray());
+        requireNotDuplicatedNumber(trial.toCharArray());
+    }
+
+    private void checkBallByLetter(char trialChar, Result result) {
+        for (int j = 0; j < 3; j++) {
+            if (answerCharArr[j] == trialChar)
+                result.addBall();
+        }
+    }
+
+    private static void require3Digits(String digits) {
+        if (digits.length() > 3)
             throw new IllegalArgumentException(ERROR_ANSWER_SHOULD_BE_3_DIGITS);
     }
 
@@ -34,38 +66,6 @@ public class Game {
             if (curChar > '9' || curChar < '0') {
                 throw new IllegalArgumentException(ERROR_ANSWER_SHOULD_BE_3_DIGITS);
             }
-        }
-    }
-
-    public Result guess(String trial) {
-        char[] trialCharArr = trial.toCharArray();
-
-        require3Digits(trial);
-        requireAllNumber(trialCharArr);
-        requireNotDuplicatedNumber(trialCharArr);
-
-        if (answer.equals(trial)) {
-            return Result.of(3, 0);
-        }
-
-        Result result = Result.of();
-
-        for (int i = 0; i < 3; i++) {
-            if (answerCharArr[i] == trialCharArr[i]) {
-                result.addStrike();
-                continue;
-            }
-
-            checkBallByLetter(trialCharArr[i], result);
-        }
-
-        return result;
-    }
-
-    private void checkBallByLetter(char trialChar, Result result) {
-        for (int j = 0; j < 3; j++) {
-            if (answerCharArr[j] == trialChar)
-                result.addBall();
         }
     }
 }

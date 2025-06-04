@@ -66,7 +66,7 @@ class GameTest {
     }
 
     @Nested
-    class ConstructorAbnormalTest {
+    class AnswerAbnormalTest {
 
         @Test
         void illegalStringAnswerTest() {
