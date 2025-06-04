@@ -1,36 +1,67 @@
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameTest {
 
-    @Test
-    void threeStrikeTest() {
-        Game game = new Game();
+    private Game game;
 
-        Result ret = game.guess("123");
+    @Nested
+    class NormalTest {
 
-        assertEquals(3, ret.getStrikes());
-        assertEquals(0, ret.getBalls());
-    }
+        @BeforeEach
+        void setUp() {
+            game = new Game("123");
+        }
 
-    @Test
-    void twoStrikeZeroBallTest() {
-        Game game = new Game();
+        @Test
+        void threeStrikeTest() {
+            Result ret = game.guess("123");
 
-        Result ret = game.guess("129");
+            assertEquals(3, ret.getStrikes());
+            assertEquals(0, ret.getBalls());
+        }
 
-        assertEquals(2, ret.getStrikes());
-        assertEquals(0, ret.getBalls());
-    }
+        @Test
+        void twoStrikeZeroBallTest() {
+            Result ret = game.guess("129");
 
-    @Test
-    void oneStrikeTwoBallTest() {
-        Game game = new Game();
+            assertEquals(2, ret.getStrikes());
+            assertEquals(0, ret.getBalls());
+        }
 
-        Result ret = game.guess("132");
+        @Test
+        void oneStrikeTwoBallTest() {
+            Result ret = game.guess("132");
 
-        assertEquals(1, ret.getStrikes());
-        assertEquals(2, ret.getBalls());
+            assertEquals(1, ret.getStrikes());
+            assertEquals(2, ret.getBalls());
+        }
+
+        @Test
+        void oneStrikeTest() {
+            Result ret = game.guess("195");
+
+            assertEquals(1, ret.getStrikes());
+            assertEquals(0, ret.getBalls());
+        }
+
+        @Test
+        void threeBallTest() {
+            Result ret = game.guess("312");
+
+            assertEquals(0, ret.getStrikes());
+            assertEquals(3, ret.getBalls());
+        }
+
+        @Test
+        void noStrikeNoBallTest() {
+            Result ret = game.guess("456");
+
+            assertEquals(0, ret.getStrikes());
+            assertEquals(0, ret.getBalls());
+        }
     }
 }

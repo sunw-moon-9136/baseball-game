@@ -1,16 +1,17 @@
-import java.util.Arrays;
-
 public class Game {
 
-    public static final String TEMP_ANSWER = "123";
+    private final String answer;
+    private final char[] answerCharArr;
 
-    private final String answer = TEMP_ANSWER;
+    public Game(String answer) {
+        this.answer = answer;
+        answerCharArr = answer.toCharArray();
+    }
 
     public Result guess(String trial) {
         if (answer.equals(trial))
             return Result.of(3, 0);
 
-        char[] answerCharArr = answer.toCharArray();
         char[] trialCharArr = trial.toCharArray();
         Result result = Result.of();
 
@@ -20,12 +21,16 @@ public class Game {
                 continue;
             }
 
-            for (int j = 0; j < 3; j++) {
-                if (answerCharArr[j] == trialCharArr[i])
-                    result.addBall();
-            }
+            checkBallByLetter(trialCharArr[i], result);
         }
 
         return result;
+    }
+
+    private void checkBallByLetter(char trialChar, Result result) {
+        for (int j = 0; j < 3; j++) {
+            if (answerCharArr[j] == trialChar)
+                result.addBall();
+        }
     }
 }
