@@ -2,9 +2,13 @@ public class Result {
     private int strikes;
     private int balls;
 
-    public Result(int strikes, int balls) {
+    private Result(int strikes, int balls) {
         this.strikes = strikes;
         this.balls = balls;
+    }
+
+    public static Result of() {
+        return new Result(0,0);
     }
 
     public void addStrike() {

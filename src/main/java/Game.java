@@ -8,12 +8,12 @@ public class Game {
         if (answer.equals(trial))
             return Result.of(3, 0);
 
-        char[] chars = answer.toCharArray();
-        char[] chars2 = trial.toCharArray();
-        Result result = Result.of(0,0);
+        char[] answerCharArr = answer.toCharArray();
+        char[] trialCharArr = trial.toCharArray();
+        Result result = Result.of();
 
-        for (int i=0;i<3;i++){
-            if(chars[i] == chars2[i])
+        for (int i = 0; i < 3; i++) {
+            if (answerCharArr[i] == trialCharArr[i])
                 result.addStrike();
         }
 
