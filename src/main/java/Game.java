@@ -8,6 +8,15 @@ public class Game {
         if (answer.equals(trial))
             return Result.of(3, 0);
 
-        throw new IllegalArgumentException("Illegal Argument: " + trial);
+        char[] chars = answer.toCharArray();
+        char[] chars2 = trial.toCharArray();
+        Result result = Result.of(0,0);
+
+        for (int i=0;i<3;i++){
+            if(chars[i] == chars2[i])
+                result.addStrike();
+        }
+
+        return result;
     }
 }
